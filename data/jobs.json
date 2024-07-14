@@ -1,0 +1,38 @@
+[
+  {
+    "job_roles": ["frontend-developer"],
+    "languages": [
+      {
+        "title": "German",
+        "rating": "C1",
+        "must_have": true
+      },
+      {
+        "title": "English",
+        "rating": "B2",
+        "must_have": true
+      }
+    ],
+    "max_salary": 70000,
+    "min_degree": "none",
+    "seniorities": ["junior", "midlevel"]
+  },
+  {
+    "job_roles": ["backend-developer", "java-developer"],
+    "languages": [
+      {
+        "title": "German",
+        "rating": "B1",
+        "must_have": true
+      },
+      {
+        "title": "English",
+        "rating": "C2",
+        "must_have": true
+      }
+    ],
+    "max_salary": 60000,
+    "min_degree": "bachelor",
+    "seniorities": ["junior", "midlevel"]
+  }
+]
