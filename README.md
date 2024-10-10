@@ -1,95 +1,65 @@
 # Intro
 
-For your next step in the application process at Instaffo we'd like you to do the task given below to be able to further assess your skills and knowledge. Please send a link to a publicly accessible git repository containing your solution to the person managing your application process (e.g. in the chat on instaffo.com).
+This project focuses on building a search and ranking component using machine learning to match talents with relevant job opportunities. The goal is to develop a solution that filters out irrelevant results and ranks the most suitable matches at the top. Code quality, project structure, environment management, and documentation are as important as the model's accuracy.
 
-The model you chose and it's accuracy is not all that counts. Code quality (including project structure), dependencies and environment management, documentation (docstrings, comments, README file, etc.) are **equally** important!
+# Matching Talents and Jobs Using Machine Learning
 
-We wish you good luck (and also a lot of fun) with the task! 🍀
+The problem revolves around creating an efficient matching system for talents and job roles. Job seekers have specific attributes, such as degrees, job roles, salary expectations, and language skills, while job postings have corresponding requirements. The objective is to develop a model that:
 
-# Matching talents and jobs using machine learning
+- Filters out talent-job matches that don’t align.
+- Ranks the results based on their relevance.
 
-Instaffo is a recruiting platform that makes money by bringing together hiring companies and talents. Companies offer job opportunities and need the right talents to fill their open job positions, talents on the other hand are looking for new job opportunities.
+## Problem Statement
 
-One core component of the Instaffo platform is the search functionality, which e.g. enables talents to only see relevant job opportunities, the most interesting ones ideally being at the top. This involves:
+Given a dataset (see `data.json`) containing information about talents and job postings, the task is to create a machine learning model that predicts whether a talent is suitable for a job and provides a ranking score.
 
-- Filtering out talents/job opportunities that don't _**match**_ (meaning the job opportunity doesn't fit the talents' profile and should therefore not being recommended to them).
-- Ranking all results in a meaningful order.
+### Talent Dictionary:
+- `degree` (str): Highest degree of the talent.
+- `job_roles` (list[str]): Job roles the talent is interested in.
+- `languages` (list[dict]): Languages the talent speaks with their respective levels.
+- `salary_expectation` (int): Salary the talent expects from a new job.
+- `seniority` (str): Seniority of the talent.
+
+### Job Dictionary:
+- `job_roles` (list[str]): Applicable job roles for the job.
+- `languages` (list[dict]): Language requirements of the job.
+- `max_salary` (int): Maximum salary the job offers.
+- `min_degree` (str): Minimum degree required for the job.
+- `seniorities` (list[str]): Seniority levels allowed for the job.
 
 ## Task
 
-In this task you'll create a lightweight search & ranking component using Python and machine learning.
+### Part 1: Build a Machine Learning Model
+Create a machine learning model using Python that takes a talent profile and a job profile as input and returns:
+- A label (`true` if the talent and job match, `false` otherwise).
+- A ranking score (a float) to indicate the strength of the match.
 
-First, let's take a look at the provided data (see _**data.json**_), which contains an array of dictionaries, each having the following properties:
+Key steps:
+- Data cleaning, transformation, and feature extraction.
+- Use logistic regression (or any other sensible approach) to predict matches.
+- Focus on interpretability and simplicity over high accuracy.
 
-- **talent**: profile information of the talent (detailed description below).
-- **job**: profile information of the job (detailed description below).
-- **label**: `true` if talent and job _**match**_, else `false`.
-
-The **talent** dictionary contains the following properties:
-
-| Field name         |    Type    |                       Description                       |
-| :----------------- | :--------: | :-----------------------------------------------------: |
-| degree             |    str     |              Highest degree of the talent               |
-| job_roles          | list[str]  |          Job roles the talent is interested in          |
-| languages          | list[dict] | Languages the talent speaks with their respective level |
-| salary_expectation |    int     |  Salary the talent expects a potential new job to pay   |
-| seniority          |    str     |                 Seniority of the talent                 |
+### Requirements:
+- **Python** 
+- **scikit-learn** as the machine learning library.
 
 
-The **job** dictionary contains the following properties:
+### Part 2: Implement a Search & Ranking Component
+Create a search and ranking component that uses the model developed in Part 1 to rank talents based on their relevance to job opportunities. The provided template (`search.py`) includes methods to implement, and additional structuring of the project is encouraged for best practices.
 
-| Field name  |    Type    |               Description               |
-| :---------- | :--------: | :-------------------------------------: |
-| job_roles   | list[str]  |    Applicable job roles for the job     |
-| languages   | list[dict] |    Language requirements of the job     |
-| max_salary  |    int     |   Maximum salary the job is offering    |
-| min_degree  |    str     |  Minimum degree a talent needs to have  |
-| seniorities | list[str]  | Seniorities talents are allowed to have |
+## Solution Reasoning
 
+This project uses **logistic regression** to match talents and jobs, with a focus on **interpretability**. Logistic regression allows for a clear understanding of how features (like seniority, degree, and salary) affect the prediction.
 
-### Part 1
+Strengths:
+- Features are directly interpretable, making it easy to explain why a match was predicted.
+- Ideal for initial exploration of the data.
 
-Create a machine learning model which takes a **talent** and **job** profile as input and returns a label (`true` if talent and job _**match**_, else `false`) and a score (a float, for ranking purposes only).
+Limitations:
+- Logistic regression may not fully capture the complexity of the data. More sophisticated models could be considered to improve performance.
+- Further enhancements, such as feature engineering and hyperparameter tuning, could increase accuracy.
 
-The goal of this task is **not** to achieve the highest accuracy. The importance is to choose an approach which is appropriate (this also includes data cleaning, transformation and feature extraction). Hence, there is no need to do any hyper parameter tuning or similar. Just use sensible values where applicable (e.g. the defaults).
+## Conclusion
 
-Important requirements:
+This project demonstrates how machine learning can be applied to match talents with job opportunities, with a focus on simplicity, interpretability, and clean code practices. The logistic regression model serves as a foundation, and more advanced models can be explored in the future for refinement.
 
-- Python is the only programming language allowed.
-- No external services (e.g. APIs like ChatGPT), databases (e.g. MongoDB) or search/recommender systems (e.g. Elasticsearch) are allowed.
-- Only `scikit-learn` is allowed as machine learning library/framework.
-- Besides the restriction regarding machine learning libraries, every publicly available Python package can be used.
-
-Your solution for this task should include the following:
-
-- All code (Python scripts, modules, jupyter notebooks, etc.) required for training the machine learning model, including data cleaning, data transformation and feature extraction.
-- A **short** (5 sentences are already enough) description explaining why you chose the approach above.
-- If the model size is too big you don't need to push it into git.
-
-**⚠️ The machine learning model and potentially some functions you create here will be used in the second part of the task. It's wise to read it before starting with this task to already create reusable code for the second part.**
-
-### Part 2
-
-Write a search & ranking component using the provided template (see _**search.py**_) with the machine learning model you created in the first part of this task.
-
-This part is not about being able to accomplish the task (we expect each candidate to easily being able to implement everything necessary) but showing us that you have the necessary software development skills required for the position. Here it's all about code quality! The provided template only defines one module with methods you **must** implement, not meaning that using additional modules/functions/methods (e.g. for better structuring the code) isn't allowed. We encourage you to use all functionality Python offers to create a proper project!
-
-Important requirements:
-
-- Same requirements as above apply.
-
-Your solution for this task should include the following:
-
-- A complete & proper Python project with everything that's necessary and considered best practice.
-- **No** tests or CI/CD is required.
-
-
-
-### Solution Reasoning
-
-This script uses **logistic regression** for talent-job matching, focusing on **interpretability**. 
-
-- Its strength lies in how features like seniority and degrees directly influence predictions, making it easy to understand why a talent is deemed suitable.
-- This interpretability aids initial exploration and validates model decisions.
-- However, logistic regression's simplicity may not capture all complexities in the data, suggesting potential for exploring more sophisticated models for better refinement.
-- Enhancements like `feature engineering, leveraging domain expertise, and hyperparameter tuning` could further boost prediction accuracy and model performance.
